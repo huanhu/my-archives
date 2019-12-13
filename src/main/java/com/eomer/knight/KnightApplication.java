@@ -1,5 +1,7 @@
 package com.eomer.knight;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2// 启动swagger ui注解
 public class KnightApplication {
 
+    private static Logger logger = LoggerFactory.getLogger(KnightApplication.class);
     /** 
     * main 
     * @params [args] 
@@ -20,6 +23,9 @@ public class KnightApplication {
     * @author Eomer 
     * @date 2019/10/8 11:11
     */ 
-    public static void main(String[] args) { SpringApplication.run(KnightApplication.class, args); }
+    public static void main(String[] args) {
+        logger.info("slf4j 启动 \n\r ");
+        SpringApplication.run(KnightApplication.class, args);
+    }
 
 }
