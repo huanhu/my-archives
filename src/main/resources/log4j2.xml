@@ -9,9 +9,9 @@
         <!-- 路径 -->
         <Property name="FILE_PATH">E:/log</Property>
         <!-- 日志名称 -->
-        <Property name="FILE_NAME">info.log</Property>
-        <Property name="FILE_NAME_SYS">sys.log</Property>
-        <Property name="FILE_NAME_API">api.log</Property>
+        <Property name="FILE_NAME">eomer</Property>
+        <Property name="FILE_NAME_SYS">sys</Property>
+        <Property name="FILE_NAME_API">api</Property>
 
     </Properties>
 
@@ -26,33 +26,94 @@
         </console>
 
         <!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，适合临时测试用-->
-        <File name="Filelog" fileName="${FILE_PATH}/test.log" append="false">
+        <File name="Filelog" fileName="${FILE_PATH}/${FILE_NAME}.log" append="false">
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </File>
-
-        <RollingFile name="test1RollingFile" fileName="${FILE_PATH}/${test1logRollingFile}" append="true"
-                     filePattern="${FILE_PATH}/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
-            <SizeBasedTriggeringPolicy size="4 MB"/>
+        <!-- sys -->
+        <RollingFile name="sysInfoRollingFile" fileName="${FILE_PATH}/${FILE_NAME_SYS}-info.log" append="true"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-WARN-%d{yyyy-MM-dd}_%i.log.gz">
+            <!-- 设置Appender日志的上限 -->
+            <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <!-- 设置Appender日志的底线，最终就能使该文件中只输出info、warn 日志了 -->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!--interval属性用来指定多久滚动一次，默认是1 hour-->
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="4MB"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
+            <DefaultRolloverStrategy max="15"/>
         </RollingFile>
 
-        <File name="test2File" fileName="${FILE_PATH}/${test2logFile}" append="false">
-            <PatternLayout pattern="%d{HH:mm:ss} %-5level %class{36}  %L %M - %msg%xEx%n"/>
-        </File>
-        <RollingFile name="test2RollingFile" fileName="${FILE_PATH}/${test2logRollingFile}" append="true"
-                     filePattern="log/test2/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
-            <SizeBasedTriggeringPolicy size="4 MB"/>
+        <RollingFile name="sysErrorRollingFile" fileName="${FILE_PATH}/${FILE_NAME_SYS}-error.log" append="true"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-ERROR-%d{yyyy-MM-dd}_%i.log.gz">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!--interval属性用来指定多久滚动一次，默认是1 hour-->
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="4MB"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+
+        <!-- api -->
+        <RollingFile name="apiInofRollingFile" fileName="${FILE_PATH}/${FILE_NAME_API}-info.log" append="true"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{yyyy-MM-dd}_%i.log.gz">
+            <!-- 设置Appender日志的上限 -->
+            <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <!-- 设置Appender日志的底线，最终就能使该文件中只输出info、warn 日志了 -->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!--interval属性用来指定多久滚动一次，默认是1 hour-->
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="4MB"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+
+        <RollingFile name="apiErrorRollingFile" fileName="${FILE_PATH}/${FILE_NAME_API}-error.log" append="true"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-ERROR-%d{yyyy-MM-dd}_%i.log.gz">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!--interval属性用来指定多久滚动一次，默认是1 hour-->
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="4MB"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
+            <DefaultRolloverStrategy max="15"/>
         </RollingFile>
     </appenders>
     <!-- 输出项 -->
     <loggers>
-        <Logger name="test1Logger" additivity="TRUE" level="ALL">
-            <AppenderRef ref="test1File" level="ALL"/>
-            <AppenderRef ref="test1RollingFile" level="ALL"/>
+        <!-- 默认 -->
+        <root level="info" >
+            <appender-ref ref="Console"/>
+            <appender-ref ref="Filelog"/>
+        </root>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.mybatis" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <!--监控系统信息-->
+        <!--若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。-->
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
         </Logger>
-        <Logger name="test2Logger" additivity="TRUE" level="ALL">
-            <AppenderRef ref="test2RollingFile" level="ALL"/>
+        <!-- 模块一 指定文件输出，不在其他显示 -->
+        <Logger name="SysLogger" additivity="false" level="all">
+            <AppenderRef ref="sysInfoRollingFile" level="info"/>
+            <AppenderRef ref="sysErrorRollingFile" level="error"/>
+        </Logger>
+        <!-- 模块二 指定文件输出，不在其他显示 -->
+        <Logger name="ApiLogger" additivity="false" level="all">
+            <AppenderRef ref="apiInofRollingFile" level="info"/>
+            <AppenderRef ref="apiErrorRollingFile" level="error"/>
         </Logger>
     </loggers>
 </configuration>
