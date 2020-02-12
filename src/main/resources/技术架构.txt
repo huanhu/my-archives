@@ -1,0 +1,26 @@
+
+已完成：
+1、idea springboot
+2、json工具使用gson
+3、添加自定义log
+4、使用swagger UI 注释
+待完成：
+5、添加 mybatis、 database 数据库
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
