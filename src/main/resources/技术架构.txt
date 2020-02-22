@@ -5,8 +5,9 @@
 3、添加自定义log
 4、使用swagger UI 注释
 待完成：
-5、添加 mybatis、 database 数据库
-
+5、添加 mybatis-plus generator 生成代码， 自定义生成文件目录，自定义格式 templates  .btl .ftl .vm
+6、database 数据库 D:\global.db 、 H2数据库 http://www.h2database.com/
+7、
 
 
 

@@ -23,6 +23,7 @@
         <druid.version>1.1.20</druid.version>
         <!--<spring-jdbc.version>5.0.9.RELEASE</spring-jdbc.version>-->
         <mysql.jdbc.version>8.0.14</mysql.jdbc.version>
+        <sqlite.jdbc.version>3.30.1</sqlite.jdbc.version>
         <swagger-ui.version>2.9.2</swagger-ui.version>
         <swagger2.version>2.9.2</swagger2.version>
         <asciidoctor-maven-plugin.version>1.6.0</asciidoctor-maven-plugin.version>
@@ -31,8 +32,12 @@
         <springframework.core.version>3.2.1.RELEASE</springframework.core.version>
         <boot.starter.log4j2>2.2.2.RELEASE</boot.starter.log4j2>
         <lombok.version>1.18.6</lombok.version>
-        <!--<mybatis.version>3.5.4</mybatis.version>-->
-        <mybatis-plus.version>3.0.7.1</mybatis-plus.version>
+        <mybatis-plus.boot.starter.version>3.3.1</mybatis-plus.boot.starter.version>
+        <pagehelper-spring.boot.starter.version>1.2.13</pagehelper-spring.boot.starter.version>
+        <pagehelper.version>5.1.11</pagehelper.version>
+        <pagehelper-spring.boot.starter.version>1.2.13</pagehelper-spring.boot.starter.version>
+        <jsqlparser.version>3.1</jsqlparser.version>
+        <h2database.version>1.4.200</h2database.version>
     </properties>
 
     <dependencies>
@@ -132,12 +137,13 @@
             <!--<version>RELEASE</version>
             <scope>compile</scope>-->
         </dependency>
-        <!-- mysql 驱动 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.jdbc.version}</version>
-        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+        <!--<dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite.jdbc.version}</version>
+        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -150,12 +156,79 @@
             <artifactId>mybatis</artifactId>
             <version>${mybatis.version}</version>
         </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.boot.starter.version}</version>
+        </dependency>
+
+        <!-- mysql 驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.jdbc.version}</version>
+        </dependency>
+        <!-- 嵌入式数据库 -->
+        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2database.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- pagehelper-->
+        <!--<dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper-spring.boot.starter.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.pagehelper</groupId>-->
+            <!--<artifactId>pagehelper</artifactId>-->
+            <!--<version>${pagehelper.version}</version>-->
+        <!--</dependency>-->
+        <!-- pagehelper 依赖 -->
+        <!--<dependency>-->
+            <!--<groupId>com.github.jsqlparser</groupId>-->
+            <!--<artifactId>jsqlparser</artifactId>-->
+            <!--<version>${jsqlparser.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- 生成代码 - 开始 -->
         <!-- Mybatis-Plus（简称MP）是一个 Mybatis 的增强工具，在 Mybatis 的基础上只做增强不做改变，为简化开发、提高效率而生。 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>${mybatis-plus.version}</version>
+            <version>3.0.7.1</version>
         </dependency>
+        <!-- 依赖 -->
+        <!-- Velocity（默认） -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <!-- Freemarker： -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.29</version>
+        </dependency>
+        <!-- Beetl： -->
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl</artifactId>
+            <version>3.0.18.RELEASE</version>
+        </dependency>
+        <!-- 生成代码 - 结束 -->
 
         <!-- Java 前端 UI 组件 -->
         <!--<dependency>
