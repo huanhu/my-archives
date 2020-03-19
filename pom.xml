@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.eomer</groupId>
@@ -23,6 +23,7 @@
         <druid.version>1.1.20</druid.version>
         <!--<spring-jdbc.version>5.0.9.RELEASE</spring-jdbc.version>-->
         <mysql.jdbc.version>8.0.14</mysql.jdbc.version>
+        <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>
         <sqlite.jdbc.version>3.30.1</sqlite.jdbc.version>
         <swagger-ui.version>2.9.2</swagger-ui.version>
         <swagger2.version>2.9.2</swagger2.version>
@@ -32,12 +33,14 @@
         <springframework.core.version>3.2.1.RELEASE</springframework.core.version>
         <boot.starter.log4j2>2.2.2.RELEASE</boot.starter.log4j2>
         <lombok.version>1.18.6</lombok.version>
-        <mybatis-plus.boot.starter.version>3.3.1</mybatis-plus.boot.starter.version>
+        <hutool-all.version>5.2.3</hutool-all.version>
+        <h2database.version>1.4.200</h2database.version>
+
+        <mybatis-plus.boot.starter.version>3.1.2</mybatis-plus.boot.starter.version>
         <pagehelper-spring.boot.starter.version>1.2.13</pagehelper-spring.boot.starter.version>
         <pagehelper.version>5.1.11</pagehelper.version>
         <pagehelper-spring.boot.starter.version>1.2.13</pagehelper-spring.boot.starter.version>
         <jsqlparser.version>3.1</jsqlparser.version>
-        <h2database.version>1.4.200</h2database.version>
     </properties>
 
     <dependencies>
@@ -101,6 +104,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <!-- swagger ui  -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -163,6 +167,14 @@
             <version>${mybatis-plus.boot.starter.version}</version>
         </dependency>
 
+        <!-- oracle -->
+        <!-- https://mvnrepository.com/artifact/oracle/ojdbc6 -->
+        <dependency>
+            <groupId>oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>${oracle.jdbc.version}</version>
+        </dependency>
+
         <!-- mysql 驱动 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -202,32 +214,32 @@
             <!--<version>${jsqlparser.version}</version>-->
         <!--</dependency>-->
 
-        <!-- 生成代码 - 开始 -->
+        <!-- 生成代码 - 开始 - 与正常运行冲突正常启用项目时需要注释  -->
         <!-- Mybatis-Plus（简称MP）是一个 Mybatis 的增强工具，在 Mybatis 的基础上只做增强不做改变，为简化开发、提高效率而生。 -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
             <version>3.0.7.1</version>
         </dependency>
-        <!-- 依赖 -->
-        <!-- Velocity（默认） -->
+        &lt;!&ndash; 依赖 &ndash;&gt;
+        &lt;!&ndash; Velocity（默认） &ndash;&gt;
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
             <version>2.2</version>
         </dependency>
-        <!-- Freemarker： -->
+        &lt;!&ndash; Freemarker： &ndash;&gt;
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.29</version>
         </dependency>
-        <!-- Beetl： -->
+        &lt;!&ndash; Beetl： &ndash;&gt;
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl</artifactId>
             <version>3.0.18.RELEASE</version>
-        </dependency>
+        </dependency>-->
         <!-- 生成代码 - 结束 -->
 
         <!-- Java 前端 UI 组件 -->
@@ -235,6 +247,14 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
         </dependency>-->
+
+        <!-- 难得糊涂，开源工具类 -->
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
 
 
     </dependencies>

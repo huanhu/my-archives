@@ -1,10 +1,8 @@
 package com.eomer.knight.modules.controller;
 
-import com.eomer.knight.modules.demo.web.UserWeb;
+import com.eomer.knight.modules.gen.controller.UserController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 //Api注解，描述信息 可通过tag进行分类
 @Api(value = "test", description = "入口")
 public class TestController {
-    private static Logger logger = LoggerFactory.getLogger("RollingFileInfo");
+//    private static Logger logger = LoggerFactory.getLogger("RollingFileInfo");
 
     @Autowired
-    private UserWeb userWeb;
+    private UserController userController;
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     //方法描述
@@ -38,9 +36,22 @@ public class TestController {
      * @author Eomer
      * @date 2019/12/13 18:20
      */
-    public void test() {
-        userWeb.testSelect();
+    public Object test() {
+        return userController.test();
     }
 
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    //方法描述
+    @ApiOperation(notes = "测试查询人员", value = "show")
+    /**
+     * server
+     * @params [name, sex, age]
+     * @return java.lang.Object
+     * @author Eomer
+     * @date 2019/12/13 18:20
+     */
+    public Object show() {
+        return userController.show();
+    }
 
 }
