@@ -1,5 +1,6 @@
 package com.eomer.knight.modules.gen.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eomer.knight.modules.gen.entity.User;
 import com.eomer.knight.modules.gen.mapper.UserMapper;
@@ -25,9 +26,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public List<User> test(){
-//        System.out.println("test");
-//        System.out.println(GsonUtil.GsonString(userMapper.selectList(null)));
-        return userMapper.selectList(null);
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+
+        User user = new User();
+        user.setName("2");
+//        queryWrapper.setEntity(user);
+
+        queryWrapper.like("name", "2");
+
+        return userMapper.selectList(queryWrapper);
     }
 
 }

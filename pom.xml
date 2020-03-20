@@ -216,26 +216,27 @@
 
         <!-- 生成代码 - 开始 - 与正常运行冲突正常启用项目时需要注释  -->
         <!-- Mybatis-Plus（简称MP）是一个 Mybatis 的增强工具，在 Mybatis 的基础上只做增强不做改变，为简化开发、提高效率而生。 -->
-        <!--<dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
             <version>3.0.7.1</version>
         </dependency>
-        &lt;!&ndash; 依赖 &ndash;&gt;
-        &lt;!&ndash; Velocity（默认） &ndash;&gt;
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>2.2</version>
-        </dependency>
-        &lt;!&ndash; Freemarker： &ndash;&gt;
+        <!-- Freemarker： -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.29</version>
         </dependency>
-        &lt;!&ndash; Beetl： &ndash;&gt;
-        <dependency>
+        <!-- 依赖 -->
+        <!-- Velocity（默认） -->
+        <!--<dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.2</version>
+        </dependency>-->
+
+        <!-- Beetl： -->
+        <!--<dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl</artifactId>
             <version>3.0.18.RELEASE</version>

@@ -1,6 +1,10 @@
 package com.eomer.knight.modules.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.eomer.knight.modules.gen.controller.TRoleController;
 import com.eomer.knight.modules.gen.controller.UserController;
+import com.eomer.knight.modules.gen.entity.TRole;
+import com.eomer.knight.modules.gen.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +12,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * demo2 - TestController
@@ -25,6 +31,8 @@ public class TestController {
 
     @Autowired
     private UserController userController;
+    @Autowired
+    private TRoleController tRoleController;
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     //方法描述
@@ -50,8 +58,23 @@ public class TestController {
      * @author Eomer
      * @date 2019/12/13 18:20
      */
-    public Object show() {
+    public List<User> show() {
         return userController.show();
+    }
+
+    @RequestMapping(value = "/role", method = RequestMethod.GET)
+    //方法描述
+    @ApiOperation(notes = "角色", value = "role")
+    /**
+     * server
+     * @params [name, sex, age]
+     * @return java.lang.Object
+     * @author Eomer
+     * @date 2019/12/13 18:20
+     */
+    public IPage<TRole> get(IPage<TRole> page) {
+
+        return tRoleController.getList(page);
     }
 
 }
