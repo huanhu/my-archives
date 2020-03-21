@@ -4,8 +4,13 @@ package com.eomer.knight.modules.gen.controller;
 import com.eomer.knight.modules.gen.entity.User;
 import com.eomer.knight.modules.gen.mapper.UserMapper;
 import com.eomer.knight.modules.gen.service.IUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,7 +23,11 @@ import java.util.List;
  * @author jobob
  * @since 2020-02-22
  */
-@Component
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
+@RequestMapping("/user")
+//Api注解，描述信息 可通过tag进行分类
+@Api(value = "user", description = "用户信息")
 public class UserController {
 
 
@@ -34,14 +43,20 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @Resource(name = "userServiceImpl")
+    private IUserService iUserService;
+
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    //方法描述
+    @ApiOperation(notes = "获取用户列表", value = "show")
     public List<User> show(){
 
         return userMapper.selectList(null);
     }
 
-    @Resource(name = "userServiceImpl")
-    private IUserService iUserService;
-
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    //方法描述
+    @ApiOperation(notes = "获取用户列表", value = "test")
     public List<User> test(){
 
         return iUserService.test();

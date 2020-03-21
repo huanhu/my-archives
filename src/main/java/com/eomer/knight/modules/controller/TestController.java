@@ -1,18 +1,17 @@
 package com.eomer.knight.modules.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.eomer.knight.modules.gen.controller.TRoleController;
-import com.eomer.knight.modules.gen.controller.UserController;
-import com.eomer.knight.modules.gen.entity.TRole;
-import com.eomer.knight.modules.gen.entity.User;
+import com.eomer.knight.modules.test.entity.ConsumeRecord;
+import com.eomer.knight.modules.test.entity.Knight;
+import com.eomer.knight.modules.test.entity.PageHelper;
+import com.eomer.knight.tools.gson.GsonUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,12 +26,85 @@ import java.util.List;
 //Api注解，描述信息 可通过tag进行分类
 @Api(value = "test", description = "入口")
 public class TestController {
-//    private static Logger logger = LoggerFactory.getLogger("RollingFileInfo");
+    private static Logger logger = LoggerFactory.getLogger("SysLogger");//RollingFileInfo
 
-    @Autowired
-    private UserController userController;
-    @Autowired
-    private TRoleController tRoleController;
+    @RequestMapping(value = "/pageTest", method = RequestMethod.POST)
+    //方法描述
+    @ApiOperation(notes = "分页测试", value = "pageTest")
+    /**
+     * server
+     * @params [name, sex, age]
+     * @return java.lang.Object
+     * @author Eomer
+     * @date 2019/12/13 18:20
+     */
+    public PageHelper<Knight> pageTest(@RequestBody ConsumeRecord consumeRecord) {
+
+        //page : (limit / offset) + 1, //当前页码
+
+        int offset = consumeRecord.getOffset();
+        int limit = consumeRecord.getLimit();
+        int pageNum = offset / limit;
+        int total = 99;
+        //(int) Math.ceil(offset / limit);
+
+        PageHelper page = new PageHelper();
+        List list = new ArrayList();
+        for (int i = pageNum; i < total; i++) {
+            if((offset+limit)>i && i>=offset){
+                Knight item = new Knight();
+                item.setAge(i);
+                item.setName("A"+i);
+                item.setSex(i%2);
+                list.add(item);
+            }
+        }
+        page.setRows(list);
+        page.setTotal(total);
+        logger.info("[GsonUtil]: " + GsonUtil.GsonString(page));
+
+        return page;
+
+    }
+
+    @RequestMapping(value = "/pageTest2", method = RequestMethod.GET)
+    //方法描述
+    @ApiOperation(notes = "分页测试", value = "pageTest2")
+    /**
+     * server
+     * @params [name, sex, age]
+     * @return java.lang.Object
+     * @author Eomer
+     * @date 2019/12/13 18:20
+     */
+    public PageHelper<Knight> pageTest2(@ApiParam(name = "offset" , value = "SQL语句起始索引",  example = "0")
+                                        @RequestParam(value = "offset", defaultValue  = "0") int offset,
+                                        @ApiParam(name = "limit" , value = "每页显示数量",  example = "0")
+                                        @RequestParam(value = "limit", defaultValue  = "0") int limit) {
+        //page : (limit / offset) + 1, //当前页码
+
+        int pageNum = offset / limit;
+        //(int) Math.ceil(offset / limit);
+
+        PageHelper page = new PageHelper();
+        List list = new ArrayList();
+        for (int i = pageNum; i < 9; i++) {
+            if((offset+limit)>i && i>=offset){
+                Knight item = new Knight();
+                item.setAge(i);
+                item.setName("A"+i);
+                item.setSex(i%2);
+                list.add(item);
+            }
+        }
+        page.setRows(list);
+        page.setTotal(9);
+        logger.info("[GsonUtil]: " + GsonUtil.GsonString(page));
+
+        return page;
+
+    }
+
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     //方法描述
@@ -44,37 +116,25 @@ public class TestController {
      * @author Eomer
      * @date 2019/12/13 18:20
      */
-    public Object test() {
-        return userController.test();
-    }
+    public List<Knight> test(@ApiParam(name = "name", value = "姓名") @RequestParam("name") String name,
 
-    @RequestMapping(value = "/show", method = RequestMethod.GET)
-    //方法描述
-    @ApiOperation(notes = "测试查询人员", value = "show")
-    /**
-     * server
-     * @params [name, sex, age]
-     * @return java.lang.Object
-     * @author Eomer
-     * @date 2019/12/13 18:20
-     */
-    public List<User> show() {
-        return userController.show();
-    }
+                             @ApiParam(name = "sex", value = "性别(男 1， 女 0)",  example = "0")
+                             @RequestParam(value = "sex", defaultValue  = "0", required = false) int sex,
 
-    @RequestMapping(value = "/role", method = RequestMethod.GET)
-    //方法描述
-    @ApiOperation(notes = "角色", value = "role")
-    /**
-     * server
-     * @params [name, sex, age]
-     * @return java.lang.Object
-     * @author Eomer
-     * @date 2019/12/13 18:20
-     */
-    public IPage<TRole> get(IPage<TRole> page) {
+                             @ApiParam(name = "age" , value = "年龄",  example = "0")
+                             @RequestParam(value = "age", defaultValue  = "0") int age) {
 
-        return tRoleController.getList(page);
+        List list = new ArrayList();
+        Knight item = new Knight();
+        item.setAge(age);
+        item.setName(name);
+        item.setSex(sex);
+        list.add(item);
+
+        logger.info("[GsonUtil]: " + GsonUtil.GsonString(list));
+
+        return list;
+
     }
 
 }

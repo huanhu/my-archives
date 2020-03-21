@@ -125,16 +125,17 @@ public class CodeGenerator {
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
 
-        // 配置自定义输出模板
+        // 配置自定义输出模板 --- Freemarker 模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         templateConfig.setController("templates/Freemarker/controller.java");
         templateConfig.setEntity("templates/Freemarker/entity.java");
-        templateConfig.setEntityKt("templates/Freemarker/entity.kt");
         templateConfig.setService("templates/Freemarker/service.java");
         templateConfig.setServiceImpl("templates/Freemarker/serviceImpl.java");
         templateConfig.setMapper("templates/Freemarker/mapper.java");
-        //templateConfig.setXml("templates/Freemarker/mapper.xml");
         templateConfig.setXml(null);
+        //templateConfig.setXml("templates/Freemarker/mapper.xml");
+        //templateConfig.setEntityKt("templates/Freemarker/entity.kt");//Kotin 实体类模板
+
         mpg.setTemplate(templateConfig);
 
         // 策略配置
@@ -172,7 +173,7 @@ public class CodeGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);// 数据库表字段映射到实体的命名策略
         strategy.setEntityTableFieldAnnotationEnable(true);
         strategy.setEntityLombokModel(true);//是否 Lombok
-        strategy.setRestControllerStyle(false);
+        strategy.setRestControllerStyle(true);
         // 公共父类
         //strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段

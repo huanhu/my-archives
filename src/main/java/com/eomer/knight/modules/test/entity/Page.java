@@ -1,4 +1,4 @@
-package com.eomer.knight.modules.sys.entity;
+package com.eomer.knight.modules.test.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
