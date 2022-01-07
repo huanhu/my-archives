@@ -34,7 +34,7 @@
         <boot.starter.log4j2>2.2.2.RELEASE</boot.starter.log4j2>
         <lombok.version>1.18.6</lombok.version>
         <hutool-all.version>5.2.3</hutool-all.version>
-        <h2database.version>1.4.200</h2database.version>
+        <h2database.version>2.0.206</h2database.version>
 
         <mybatis-plus.boot.starter.version>3.1.2</mybatis-plus.boot.starter.version>
         <pagehelper-spring.boot.starter.version>1.2.13</pagehelper-spring.boot.starter.version>
