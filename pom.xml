@@ -28,7 +28,7 @@
         <swagger-ui.version>2.9.2</swagger-ui.version>
         <swagger2.version>2.9.2</swagger2.version>
         <asciidoctor-maven-plugin.version>1.6.0</asciidoctor-maven-plugin.version>
-        <spring.boot.version>2.1.11.RELEASE</spring.boot.version>
+        <spring.boot.version>2.2.11.RELEASE</spring.boot.version>
         <legacy.version>2.1.0.RELEASE</legacy.version>
         <springframework.core.version>3.2.1.RELEASE</springframework.core.version>
         <boot.starter.log4j2>2.2.2.RELEASE</boot.starter.log4j2>
